@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 def extract_keywords(text):
     custom_kw_extractor = yake.KeywordExtractor(
-        lan="vn", n=5, dedupLim=0.9, dedupFunc='seqm', windowsSize=3, top=20, features=None)
+        lan="vn", n=3, dedupLim=0.6, dedupFunc='seqm', windowsSize=1, top=20, features=None)
     keywords = custom_kw_extractor.extract_keywords(text)
     return [keyword[0] for keyword in keywords]
 
