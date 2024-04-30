@@ -1,7 +1,7 @@
 # vnese-keyword-extraction
 
 - Use NLP VietNamese for extracting keyword
-- Alogrithm may be used: YAKE, TF IDF, RAKE, ...
+- Algorithm may be used: YAKE, TF IDF, RAKE, ...
 
 # set up environment
 
