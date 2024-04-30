@@ -425,6 +425,7 @@ cụ thể
 cụ thể là
 cụ thể như
 của
+của các
 của ngọt
 của tin
 cứ
@@ -1322,6 +1323,8 @@ thích tự
 thích ý
 thím
 thôi
+thôi thì
+thôi thôi
 thôi việc
 thúng thắng
 thương ôi
@@ -1375,6 +1378,7 @@ thế thường
 thế thế
 thế à
 thế đó
+thế ừ
 thếch
 thỉnh thoảng
 thỏm
@@ -1440,6 +1444,7 @@ trước tiên
 trước tuổi
 trước đây
 trước đó
+trước rồi
 trả
 trả của
 trả lại
@@ -1470,12 +1475,14 @@ tuốt tuồn tuột
 tuốt tuột
 tuổi
 tuổi cả
+tuổi đời
 tuổi tôi
 tà tà
 tên
 tên chính
 tên cái
 tên họ
+tên phụ
 tên tự
 tênh
 tênh tênh
@@ -1626,6 +1633,7 @@ ví dù
 ví phỏng
 ví thử
 vô hình trung
+vô hình chung
 vô kể
 vô luận
 vô vàn

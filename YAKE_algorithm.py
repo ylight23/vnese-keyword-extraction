@@ -3,8 +3,11 @@ import os
 import string
 import math
 import statistics
-
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 # Tiền xử lý văn bản
+
+
 def preprocess_text(text):
     # Chuyển văn bản về chữ thường
     text = text.lower()
@@ -13,11 +16,15 @@ def preprocess_text(text):
     return text
 
 # Loại bỏ từ dừng
+
+
 def remove_stopwords(o_sen):
     words = [word for word in o_sen.split() if word not in stop_words]
     return " ".join(words)
 
 # Tính toán mức độ liên quan giữa từ khóa và ngữ cảnh xung quanh
+
+
 def calculate_relatedness(word, left_context, right_context):
     left_words = set(left_context.split())
     right_words = set(right_context.split())
@@ -43,10 +50,14 @@ def calculate_relatedness(word, left_context, right_context):
     return relatedness
 
 # Tính số câu mà từ khóa xuất hiện
+
+
 def calculate_different(keyword, sentences):
     return sum([1 for sentence in sentences if keyword in sentence])
 
 # Tính điểm số cuối cùng của từ khóa
+
+
 def calculate_final_score(scores, keyword):
     # Điểm số cuối cùng của từ khóa
     final_score = 1
@@ -56,6 +67,7 @@ def calculate_final_score(scores, keyword):
     # Tính điểm số của từ khóa ứng viên
     keyword_score = final_score / (1 + sum(scores)) * keyword.count(keyword)
     return keyword_score
+
 
 # Đọc từ dừng từ tập tin
 stop_words = []
@@ -76,10 +88,10 @@ text_without_stopwords = remove_stopwords(preprocessed_text)
 
 # Đặt thông số cho trích xuất từ khóa
 language = "vn"
-max_ngram_size = 6
-deduplication_thresold = 0.9
+max_ngram_size = 3
+deduplication_thresold = 0.6
 deduplication_algo = 'seqm'
-window_size = 3
+window_size = 1
 num_of_keywords = 20
 
 # Tạo trích xuất từ khóa tùy chỉnh
@@ -105,16 +117,20 @@ for keyword in keywords:
 scores = {}
 for keyword in keywords:
     # Tính điểm của mỗi từ
-    casing = max(text_without_stopwords.count(keyword[0].capitalize()), text_without_stopwords.count(keyword[0].upper())) / (1 + math.log(text_without_stopwords.count(keyword[0])))
-    positions = [sentences.index(sentence) for sentence in sentences if keyword[0] in sentence]
+    casing = max(text_without_stopwords.count(keyword[0].capitalize()), text_without_stopwords.count(
+        keyword[0].upper())) / (1 + math.log(text_without_stopwords.count(keyword[0])))
+    positions = [sentences.index(sentence)
+                 for sentence in sentences if keyword[0] in sentence]
     if positions:
         position = math.log(math.log(3 + statistics.median(positions)))
     else:
         position = 0
-    frequency = text_without_stopwords.count(keyword[0]) / (statistics.mean([text_without_stopwords.count(word) for word in text_without_stopwords.split()]) + statistics.stdev([text_without_stopwords.count(word) for word in text_without_stopwords.split()]))
-    relatedness = calculate_relatedness(keyword[0], text_without_stopwords, text_without_stopwords)
+    frequency = text_without_stopwords.count(keyword[0]) / (statistics.mean([text_without_stopwords.count(
+        word) for word in text_without_stopwords.split()]) + statistics.stdev([text_without_stopwords.count(word) for word in text_without_stopwords.split()]))
+    relatedness = calculate_relatedness(
+        keyword[0], text_without_stopwords, text_without_stopwords)
     different = different_w[keyword[0]]
-    
+
     final_score = casing + position + frequency + relatedness + different
     scores[keyword[0]] = final_score
 
@@ -123,3 +139,12 @@ for keyword in keywords:
     print("Keyword:", keyword[0])
     print("Different:", different_w[keyword[0]])
     print("Final Score:", scores[keyword[0]])
+# Generate WordCloud
+words = [kw for kw, _ in keywords]
+wordcloud = WordCloud().generate(' '.join(words))
+
+# Display the WordCloud
+# plt.figure(figsize=(10, 10))
+# plt.imshow(wordcloud, interpolation='bilinear')
+# plt.axis('off')
+# plt.show()
