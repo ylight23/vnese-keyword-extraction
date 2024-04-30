@@ -31,7 +31,7 @@ rdrsegmenter = py_vncorenlp.VnCoreNLP(annotators=["wseg"], save_dir=model_dir)
 doc_segmented = rdrsegmenter.word_segment(doc)
 # Extract candidate words/phrases
 
-count = CountVectorizer(ngram_range=(1, 1)).fit(
+count = CountVectorizer(ngram_range=(1, 2)).fit(
     [removeStopWords(doc_segmented[0])])
 candidates = count.get_feature_names()
 
@@ -41,7 +41,7 @@ doc_embedding = model.encode([doc])
 candidate_embeddings = model.encode(candidates)
 
 
-top_n = 10
+top_n = 30
 distances = cosine_similarity(doc_embedding, candidate_embeddings)
 keywords = [candidates[index] for index in distances.argsort()[0][-top_n:]]
 
